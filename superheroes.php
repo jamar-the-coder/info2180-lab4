@@ -1,5 +1,8 @@
 <?php
 
+
+header("Access-Control-Allow-Origin: *");
+
 $superheroes = [
   [
       "id" => 1,
@@ -63,10 +66,22 @@ $superheroes = [
   ], 
 ];
 
+$arrayOfHeroes = [];
+$superh = filter_var($_REQUEST["superh"], FILTER_SANITIZE_STRING,  FILTER_FLAG_NO_ENCODE_QUOTES);
+if (isset($_REQUEST["superh"])){
+    if ($superh !== ""){
+        foreach($superheroes as $superhero){
+            if (strcasecmp($superh, $superhero['alias']) == 0 || strcasecmp($superh, $superhero['name']) == 0){
+                $arrayOfHeroes = $superhero;
+            }
+        }
+        echo $arrayOfHeroes === []? json_encode("Superhero Not Found.") : json_encode($arrayOfHeroes);
+    } else {
+        echo'<ul>';
+        foreach ($superheroes as $superhero){
+            echo '<li>'.$superhero['alias'].'</li>';
+        }
+        echo '</ul>';
+    }
+}
 ?>
-
-<ul>
-<?php foreach ($superheroes as $superhero): ?>
-  <li><?= $superhero['alias']; ?></li>
-<?php endforeach; ?>
-</ul>

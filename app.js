@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function(){
             }
         }
 
-        httpRequestMadeByUser.open('get', 'http://localhost:8080/superheroes.php', true);
+        httpRequestMadeByUser.open('get', 'http://localhost/info2180-lab4/superheroes.php', true);
         httpRequestMadeByUser.send();
     });
 }); 
